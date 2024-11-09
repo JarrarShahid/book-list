@@ -56,16 +56,16 @@ class _HomeScreenState extends State<HomeScreen> {
           itemCount: books.length,
           itemBuilder: (context, index) {
             return Container(
-              margin: const EdgeInsets.only(bottom: 16), // Uniform margin between items
+              margin: const EdgeInsets.only(bottom: 16), 
               decoration: BoxDecoration(
-                color: books[index]["color"], // Use the stored color for each book
-                borderRadius: BorderRadius.circular(12),  // Rounded corners
+                color: books[index]["color"], 
+                borderRadius: BorderRadius.circular(12),  
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),  // Subtle shadow color
-                    blurRadius: 8,  // Blur radius for the shadow
-                    spreadRadius: 2,  // Shadow spread
-                    offset: Offset(0, 4),  // Shadow offset
+                    color: Colors.black.withOpacity(0.1),  
+                    blurRadius: 8,  
+                    spreadRadius: 2,  
+                    offset: Offset(0, 4), 
                   ),
                 ],
               ),
@@ -75,15 +75,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: Text(
                   books[index]["title"]!,
                   style: TextStyle(
-                    color: Colors.white, // White text color
-                    fontWeight: FontWeight.bold, // Bold text
-                    fontSize: 18, // Increased font size
+                    color: Colors.white, 
+                    fontWeight: FontWeight.bold, 
+                    fontSize: 18, 
                   ),
                 ),
                 subtitle: Text(
                   books[index]["writer"]!,
                   style: TextStyle(
-                    color: Colors.white70, // Slightly lighter text for the subtitle
+                    color: Colors.white70, 
                     fontWeight: FontWeight.bold,
                     fontSize: 16, // Subtitle font size
                   ),
