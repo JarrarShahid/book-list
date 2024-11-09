@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math'; // For generating random colors
 
 void main() {
   runApp(const MyApp());
@@ -24,14 +25,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Map<String, String>> books = [
-    {"title": "Book1", "writer": "Author1"},
-    {"title": "Book2", "writer": "Author2"},
-    {"title": "Book3", "writer": "Author3"},
-    {"title": "Book4", "writer": "Author4"},
-    {"title": "Book5", "writer": "Author5"},
-    {"title": "Book6", "writer": "Author6"},
+  // Initial list of books with their titles and authors
+  List<Map<String, dynamic>> books = [
+    {"title": "Book1", "writer": "Author1", "color": _getRandomColor()},
+    {"title": "Book2", "writer": "Author2", "color": _getRandomColor()},
+    {"title": "Book3", "writer": "Author3", "color": _getRandomColor()},
+    {"title": "Book4", "writer": "Author4", "color": _getRandomColor()},
+    {"title": "Book5", "writer": "Author5", "color": _getRandomColor()},
+    {"title": "Book6", "writer": "Author6", "color": _getRandomColor()},
   ];
+
+  // Function to generate a random color for each book
+  static Color _getRandomColor() {
+    return Color(Random().nextInt(0xFFFFFF)).withOpacity(1.0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,37 +50,70 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
         onPressed: () => _showBookDialog(context),
       ),
-      body: ListView.builder(
-        itemCount: books.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            tileColor: Colors.blue,
-            leading: const Icon(Icons.book),
-            title: Text(books[index]["title"]!),
-            subtitle: Text(books[index]["writer"]!),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () => _showBookDialog(context, index: index),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: ListView.builder(
+          itemCount: books.length,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: books[index]["color"], // Use the stored color for each book
+                borderRadius: BorderRadius.circular(12), 
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1), 
+                    blurRadius: 8,  
+                    spreadRadius: 2,  
+                    offset: Offset(0, 4), 
+                  ),
+                ],
+              ),
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(15),
+                leading: const Icon(Icons.book, color: Colors.white),
+                title: Text(
+                  books[index]["title"]!,
+                  style: TextStyle(
+                    color: Colors.white, 
+                    fontWeight: FontWeight.bold, 
+                    fontSize: 18, 
+                  ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    setState(() {
-                      books.removeAt(index);
-                    });
-                  },
+                subtitle: Text(
+                  books[index]["writer"]!,
+                  style: TextStyle(
+                    color: Colors.white70, 
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16, 
+                  ),
                 ),
-              ],
-            ),
-          );
-        },
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.white),
+                      onPressed: () => _showBookDialog(context, index: index),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.white),
+                      onPressed: () {
+                        setState(() {
+                          books.removeAt(index);
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 
+  // Dialog to add or update a book
   Future<void> _showBookDialog(BuildContext context, {int? index}) {
     final isEditing = index != null;
     final titleController = TextEditingController(
@@ -115,6 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     final book = {
                       "title": titleController.text,
                       "writer": writerController.text,
+                      "color": isEditing ? books[index]["color"] : _getRandomColor(), 
                     };
                     if (isEditing) {
                       books[index] = book;
