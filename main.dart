@@ -27,12 +27,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Initial list of books with their titles and authors
   List<Map<String, dynamic>> books = [
-    {"title": "Book1", "writer": "Author1", "color": _getRandomColor()},
-    {"title": "Book2", "writer": "Author2", "color": _getRandomColor()},
-    {"title": "Book3", "writer": "Author3", "color": _getRandomColor()},
-    {"title": "Book4", "writer": "Author4", "color": _getRandomColor()},
-    {"title": "Book5", "writer": "Author5", "color": _getRandomColor()},
-    {"title": "Book6", "writer": "Author6", "color": _getRandomColor()},
+    {"title": "Book 1", "writer": "Author 1", "color": _getRandomColor()},
+    {"title": "Book 2", "writer": "Author 2", "color": _getRandomColor()},
+    {"title": "Book 3", "writer": "Author 3", "color": _getRandomColor()},
+    {"title": "Book 4", "writer": "Author 4", "color": _getRandomColor()},
+    {"title": "Book 5", "writer": "Author 5", "color": _getRandomColor()},
+    {"title": "Book 6", "writer": "Author 6", "color": _getRandomColor()},
   ];
 
   // Function to generate a random color for each book
@@ -56,16 +56,16 @@ class _HomeScreenState extends State<HomeScreen> {
           itemCount: books.length,
           itemBuilder: (context, index) {
             return Container(
-              margin: const EdgeInsets.only(bottom: 16),
+              margin: const EdgeInsets.only(bottom: 16), // Uniform margin between items
               decoration: BoxDecoration(
                 color: books[index]["color"], // Use the stored color for each book
-                borderRadius: BorderRadius.circular(12), 
+                borderRadius: BorderRadius.circular(12),  // Rounded corners
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1), 
-                    blurRadius: 8,  
-                    spreadRadius: 2,  
-                    offset: Offset(0, 4), 
+                    color: Colors.black.withOpacity(0.1),  // Subtle shadow color
+                    blurRadius: 8,  // Blur radius for the shadow
+                    spreadRadius: 2,  // Shadow spread
+                    offset: Offset(0, 4),  // Shadow offset
                   ),
                 ],
               ),
@@ -75,17 +75,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: Text(
                   books[index]["title"]!,
                   style: TextStyle(
-                    color: Colors.white, 
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 18, 
+                    color: Colors.white, // White text color
+                    fontWeight: FontWeight.bold, // Bold text
+                    fontSize: 18, // Increased font size
                   ),
                 ),
                 subtitle: Text(
                   books[index]["writer"]!,
                   style: TextStyle(
-                    color: Colors.white70, 
+                    color: Colors.white70, // Slightly lighter text for the subtitle
                     fontWeight: FontWeight.bold,
-                    fontSize: 16, 
+                    fontSize: 16, // Subtitle font size
                   ),
                 ),
                 trailing: Row(
@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     final book = {
                       "title": titleController.text,
                       "writer": writerController.text,
-                      "color": isEditing ? books[index]["color"] : _getRandomColor(), 
+                      "color": isEditing ? books[index]["color"] : _getRandomColor(), // Retain color if editing
                     };
                     if (isEditing) {
                       books[index] = book;
